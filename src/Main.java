@@ -19,19 +19,30 @@ public class Main {
         }
 
         //Найти количество несовершеннолетних (т.е. людей младше 18 лет)
-        Stream<Person> children = persons.stream();
-        System.out.println("количество несовершеннолетних: " + children.filter(p -> p.getAge() < 18).count());
+        System.out.println(persons.stream()
+                .filter(p -> p.getAge() < 18)
+                .count()
+        );
+
 
         //Получить список фамилий призывников (т.е. мужчин от 18 и до 27 лет)
-        Stream<Person> conscripts = persons.stream();
-        conscripts = conscripts.filter(p -> p.getAge() < 27);
-        List<String> conscript = conscripts.filter(p -> p.getAge() >= 18).map(p -> p.getFamily()).collect(Collectors.toList());
+        //Stream<Person> conscripts = persons.stream();
+        System.out.println(persons.stream()
+                .filter(p -> p.getAge() < 27)
+                .filter(p -> p.getAge() >= 18)
+                .map(p -> p.getFamily())
+                .collect(Collectors.toList())
+        );
+
 
         //Получить отсортированный по фамилии список потенциально работоспособных людей с высшим образованием в выборке
         // (т.е. людей с высшим образованием от 18 до 60 лет для женщин и до 65 лет для мужчин)
-        Stream<Person> higherEducation = persons.stream();
-        higherEducation = higherEducation.filter(p -> p.getEducation().toString().equals("HIGHER"));
-        List<Person> peopleHigherEducation = higherEducation.filter(p -> (p.getSex().toString().equals("MAN")) ? p.getAge() < 65 && p.getAge() > 18 : p.getAge() < 60 && p.getAge() > 18).sorted(new familyComparator()).collect(Collectors.toList());
+        System.out.println(persons.stream()
+                .filter(p -> p.getEducation().toString().equals("HIGHER"))
+                .filter(p -> (p.getSex().toString().equals("MAN")) ? p.getAge() < 65 && p.getAge() > 18 : p.getAge() < 60 && p.getAge() > 18)
+                .sorted(new familyComparator())
+                .collect(Collectors.toList())
+        );
 
 
     }
